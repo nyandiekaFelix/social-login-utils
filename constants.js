@@ -1,4 +1,9 @@
-export const TWITTER_REQ_TOKEN_URL = '';
-export const TWITTER_OAUTH_URL = '';
-export const TWITTER_ACCESS_TOKEN_URL = '';
+const TWITTER_REQ_TOKEN_URL = '';
+const TWITTER_OAUTH_URL = '';
+const TWITTER_ACCESS_TOKEN_URL = '';
 
+module.exports = {
+  TWITTER_ACCESS_TOKEN_URL,
+  TWITTER_REQ_TOKEN_URL,
+  TWITTER_OAUTH_URL
+}

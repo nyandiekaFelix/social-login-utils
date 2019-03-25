@@ -1,29 +1,38 @@
-import * as crypto from 'crypto';
-import OAuth from 'oauth-1.0a';
-import {
+const crypto = require('crypto');
+const {
   TWITTER_ACCESS_TOKEN_URL,
   TWITTER_REQ_TOKEN_URL,
   TWITTER_OAUTH_URL
-} from '../constants';
+} = require('../constants');
+const generateHeaders = require('../heplers/oauthHeaders');
+const { twitterValidators } = require('../heplers/validators');
 
-import { twitterValidators } from '../heplers/validators';
 
+function TwitterLogin(params) {
+  twitterValidators.validConsumerParams(params);
 
-function oauthHeaders({ consumerKey: key, consumerSecret: secret }) {
-  return new OAuth({
-    consumer: { key, secret },
-    signature_method: 'HMAC-SHA!',
-    hash_function(baseStr, key) {
-      return crypto.createHmac('sha1', key).update(baseStr).digest('base64');
-    }
-  })
+  const { consumerKey, consumerSecret, callbackUrl } = params;
+
+  this.consumerKey = consumerKey;
+  this.consumerSecret = consumerSecret;
+  this.callbackUrl = callbackUrl;
+  this.oauthHeaders = generateHeaders({ consumerKey, consumerSecret});
 }
 
+const TL = TwitterLogin.prototype;
 
-function getOAuthToken() {}
+TL.getHeaders = function(reqData) {
+  const payload = this.oauthHeaders.authorize(reqData);
+  return this.oauthHeaders.toHeader(payload);
+};
 
 
-function getUserToken() {}
+TL.getRequestToken = function() {
+  const payload = {};
+};
 
 
-export default function twitterLogin(params) {}
+TL.getUserToken = function() {};
+
+
+module.exports = TwitterLogin;

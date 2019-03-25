@@ -8,6 +8,12 @@ function validParams(params, requiredKeys = []) {
   if (errors.length) throw ({ errors });
 }
 
-export const twitterValidators = {};
-export const facebookValidators = {};
-export const googleValidators = {};
+const twitterValidators = {
+  validConsumerParams(params) {
+    validParams(params, ['consumerKey', 'consumerSecret', 'callbackUrl'])
+  },
+};
+const facebookValidators = {};
+const googleValidators = {};
+
+module.exports = { twitterValidators, facebookValidators, googleValidators };
