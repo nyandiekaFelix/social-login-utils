@@ -6,8 +6,11 @@
   "license": "MIT",
   "scripts": {},
   "dependencies": {
-    "axios": "^0.18.0",
-    "oauth-1.0a": "^2.2.5"
+    "dotenv": "^8.1.0",
+    "oauth-1.0a": "^2.2.5",
+    "querystring": "^0.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
 }
